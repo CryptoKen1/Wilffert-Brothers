@@ -1,0 +1,9 @@
+/* Tailwind CSS v4 - Import the base styles */
+@import "tailwindcss";
+
+/* Custom base styles */
+body {
+  margin: 0;
+  padding: 0;
+}
+
