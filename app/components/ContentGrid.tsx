@@ -1,85 +1,77 @@
-'use client'
-
-import { categories } from '@/data/categories'
-import { useCategory } from './CategoryContext'
+const featuredContent = [
+  {
+    icon: '🏆',
+    title: 'See the best credit cards',
+    subtitle: 'for this month',
+    link: '/credit-cards',
+  },
+  {
+    icon: '↔️',
+    title: 'Wipe out debt and save money',
+    subtitle: 'with a balance transfer',
+    link: '/balance-transfer',
+  },
+  {
+    icon: '🎁',
+    title: 'Big rewards start with the right',
+    subtitle: 'bonus offer',
+    link: '/bonuses',
+    highlight: true,
+  },
+  {
+    icon: '📋',
+    title: 'Read expert reviews',
+    subtitle: 'of more than 400 products',
+    link: '/reviews',
+  },
+  {
+    icon: '✅',
+    title: 'Answer a few questions to find',
+    subtitle: 'your next product',
+    link: '/finder',
+  },
+];
 
 export function ContentGrid() {
-  const { activeCategory } = useCategory()
-  const current = categories[activeCategory]
-
   return (
-    <section className="flex flex-col gap-6">
-      <div className="flex flex-col gap-2">
-        <p className="text-sm uppercase tracking-[0.25em]" style={{ color: 'var(--muted)' }}>
-          {current.label}
-        </p>
-        <h2 className="text-3xl font-semibold text-[var(--text)] sm:text-4xl">{current.label} Kit</h2>
-        <p className="max-w-3xl text-lg" style={{ color: 'var(--muted)' }}>
-          {current.description}
-        </p>
-      </div>
-
-      <div className="grid gap-4 sm:grid-cols-2">
-        {current.items.map((item) => (
-          <article
-            key={item.title}
-            className="group h-full rounded-xl border p-5 transition hover:-translate-y-1"
-            style={{
-              borderColor: 'var(--border)',
-              backgroundColor: '#FFFFFF',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = 'var(--teal)'
-              e.currentTarget.style.boxShadow = '0 10px 15px -3px rgba(14, 165, 233, 0.15)'
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = 'var(--border)'
-              e.currentTarget.style.boxShadow = 'none'
-            }}
+    <section className="max-w-7xl mx-auto px-6 py-16">
+      {/* Grid of feature cards */}
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {featuredContent.map((item, idx) => (
+          <a
+            key={idx}
+            href={item.link}
+            className="group bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all border border-gray-100"
           >
-            <div className="flex items-start justify-between gap-3">
-              <h3 className="text-xl font-semibold text-[var(--text)]">{item.title}</h3>
-              <span
-                className="rounded-full border px-3 py-1 text-xs font-semibold"
-                style={{
-                  borderColor: 'rgba(245, 158, 11, 0.45)',
-                  backgroundColor: 'rgba(245, 158, 11, 0.12)',
-                  color: '#C2410C',
-                }}
-              >
-                Ready to use
-              </span>
-            </div>
-            <p className="mt-2 text-sm" style={{ color: 'var(--muted)' }}>
-              {item.summary}
-            </p>
-            <ul className="mt-4 flex flex-wrap gap-2">
-              {item.highlights.map((highlight) => (
-                <li
-                  key={highlight}
-                  className="rounded-full border px-3 py-1 text-xs transition"
-                  style={{
-                    borderColor: 'var(--border)',
-                    backgroundColor: '#F8FAFC',
-                    color: 'var(--muted)',
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.borderColor = 'var(--teal)'
-                    e.currentTarget.style.color = 'var(--teal)'
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.borderColor = 'var(--border)'
-                    e.currentTarget.style.color = 'var(--muted)'
-                  }}
-                >
-                  {highlight}
-                </li>
-              ))}
-            </ul>
-          </article>
+            <div className="text-4xl mb-4">{item.icon}</div>
+            <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-[#0EA5E9] transition-colors">
+              {item.title}
+            </h3>
+            {item.subtitle && (
+              <p className="text-gray-600">{item.subtitle}</p>
+            )}
+          </a>
         ))}
       </div>
+      
+      {/* Large featured card with image */}
+      <div className="mt-8 bg-gradient-to-r from-gray-50 to-gray-100 rounded-2xl p-12 grid lg:grid-cols-2 gap-8 items-center">
+        <div>
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">
+            Featured: Premium Tech Picks
+          </h2>
+          <p className="text-lg text-gray-600 mb-6">
+            Our top-rated products for professionals who demand excellence.
+          </p>
+          <button className="px-8 py-4 bg-[#0EA5E9] text-white rounded-full font-semibold hover:opacity-90 transition-opacity">
+            Explore Now
+          </button>
+        </div>
+        <div className="relative h-80 bg-gray-200 rounded-xl overflow-hidden">
+          {/* Featured product image */}
+          <img src="/featured.jpg" alt="" className="w-full h-full object-cover" />
+        </div>
+      </div>
     </section>
-  )
+  );
 }
-

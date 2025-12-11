@@ -1,39 +1,31 @@
 export function TrustSection() {
-  const items = [
-    { label: 'Cumulative hours tested', value: '10,000+' },
-    { label: 'Kits refined', value: '48' },
-    { label: 'Avg. satisfaction', value: '4.9 / 5' },
-    { label: 'Returning readers', value: '83%' },
-  ]
-
   return (
-    <section id="trust" className="rounded-2xl border p-8" style={{ borderColor: 'var(--border)', backgroundColor: '#FFFFFF' }}>
-      <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
-        <div className="space-y-2">
-          <p className="text-sm uppercase tracking-[0.25em]" style={{ color: 'var(--muted)' }}>
-            Trusted by our readers
-          </p>
-          <h3 className="text-2xl font-semibold text-[var(--text)]">Proof in the results</h3>
-          <p className="text-sm" style={{ color: 'var(--muted)' }}>
-            Real-world testing, weekly tweaks, and zero fluff. We keep what performs.
-          </p>
-        </div>
-        <div className="flex flex-wrap gap-4">
-          {items.map((item) => (
-            <div
-              key={item.label}
-              className="min-w-[140px] rounded-xl border px-4 py-3 text-center"
-              style={{ borderColor: 'var(--border)', backgroundColor: '#F8FAFC' }}
-            >
-              <div className="text-lg font-semibold text-[var(--text)]">{item.value}</div>
-              <div className="text-xs" style={{ color: 'var(--muted)' }}>
-                {item.label}
-              </div>
-            </div>
-          ))}
+    <section className="bg-white py-20">
+      <div className="max-w-7xl mx-auto px-6 text-center">
+        <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+          Why thousands trust Wilffert Brothers
+        </h2>
+        <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-12">
+          Expert reviews, transparent recommendations, and real-world testing.
+        </p>
+        
+        {/* Stats grid */}
+        <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+          <div className="p-6">
+            <div className="text-5xl font-bold text-[#0EA5E9] mb-2">500+</div>
+            <div className="text-gray-600">Products Reviewed</div>
+          </div>
+          <div className="p-6">
+            <div className="text-5xl font-bold text-[#0EA5E9] mb-2">10K+</div>
+            <div className="text-gray-600">Community Members</div>
+          </div>
+          <div className="p-6">
+            <div className="text-5xl font-bold text-[#0EA5E9] mb-2">95%</div>
+            <div className="text-gray-600">Satisfaction Rate</div>
+          </div>
         </div>
       </div>
     </section>
-  )
+  );
 }
 

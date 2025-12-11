@@ -1,48 +1,51 @@
-'use client'
+'use client';
+import { categories, CategoryKey } from '@/data/categories';
+import { useCategory } from './CategoryContext';
 
-import { categories, CategoryKey } from '@/data/categories'
-import { useCategory } from './CategoryContext'
+// Map categories to icons
+const categoryIcons: Record<CategoryKey, string> = {
+  finance: '💳',
+  tech: '💻',
+  health: '🏃',
+  clothes: '🎒',
+};
 
 export function CategoryNav() {
-  const { activeCategory, setActiveCategory } = useCategory()
-
+  const { activeCategory, setActiveCategory } = useCategory();
+  
   return (
-    <section id="categories" className="flex flex-col gap-3">
-      <div className="flex flex-wrap gap-3">
-        {(Object.keys(categories) as CategoryKey[]).map((key) => {
-          const isActive = key === activeCategory
-          return (
-            <button
-              key={key}
-              onClick={() => setActiveCategory(key)}
-              className={`rounded-full border px-4 py-2 text-sm font-semibold transition ${
-                isActive ? 'shadow-[0_0_0_1px_rgba(14,165,233,0.35)]' : 'hover:shadow-sm'
-              }`}
-              style={
-                isActive
-                  ? {
-                      borderColor: 'var(--teal)',
-                      backgroundColor: 'rgba(14, 165, 233, 0.12)',
-                      color: '#0F172A',
-                    }
-                  : {
-                      borderColor: 'var(--border)',
-                      color: 'var(--muted)',
-                    }
-              }
-              role="tab"
-              aria-selected={isActive}
-            >
-              {categories[key].label}
-            </button>
-          )
-        })}
+    <nav className="bg-white shadow-sm sticky top-0 z-50">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="flex items-center gap-4 overflow-x-auto py-4">
+          {(Object.keys(categories) as CategoryKey[]).map((catId) => {
+            const isActive = catId === activeCategory;
+            return (
+              <button
+                key={catId}
+                onClick={() => setActiveCategory(catId)}
+                className={`
+                  flex items-center gap-2 px-6 py-3 rounded-full 
+                  whitespace-nowrap transition-all font-medium
+                  ${isActive 
+                    ? 'bg-[#0EA5E9] text-white shadow-lg' 
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  }
+                `}
+              >
+                <span className="text-xl">{categoryIcons[catId]}</span>
+                <span>{categories[catId].label}</span>
+              </button>
+            );
+          })}
+          <button className="flex items-center gap-1 px-4 py-3 text-gray-600 hover:text-gray-900">
+            See all
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+        </div>
       </div>
-      <p className="text-sm" style={{ color: 'var(--muted)' }}>
-        Curated kits for {categories[activeCategory].label.toLowerCase()} that balance performance and
-        polish.
-      </p>
-    </section>
-  )
+    </nav>
+  );
 }
 
