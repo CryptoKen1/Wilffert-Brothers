@@ -1,6 +1,6 @@
 export function Hero() {
   return (
-    <section className="relative bg-gradient-to-br from-[#0EA5E9] to-[#F59E0B] min-h-[600px] flex items-center overflow-hidden">
+    <section className="relative bg-gradient-to-br from-[#0EA5E9] to-[#F59E0B] min-h-[600px] flex items-center overflow-hidden pt-20">
       {/* Background image */}
       <div className="absolute inset-0 z-0">
         <img 
