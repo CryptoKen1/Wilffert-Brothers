@@ -111,16 +111,16 @@ export default function HomeClient() {
   const current = categories[activeCategory]
 
   return (
-    <main className="min-h-screen bg-slate-950 text-white">
+    <main className="min-h-screen text-[var(--text)]" style={{ backgroundColor: 'var(--bg)' }}>
       <div className="mx-auto flex max-w-6xl flex-col gap-12 px-6 py-12">
         <header className="flex flex-col gap-3">
-          <p className="text-sm uppercase tracking-[0.25em] text-slate-300">
+          <p className="text-sm uppercase tracking-[0.25em]" style={{ color: 'var(--muted)' }}>
             Wilffert Brothers
           </p>
-          <h1 className="text-4xl font-semibold leading-tight sm:text-5xl">
+          <h1 className="text-4xl font-semibold leading-tight sm:text-5xl text-[var(--text)]">
             Essentials, field-tested and ready to use
           </h1>
-          <p className="max-w-3xl text-lg text-slate-300">
+          <p className="max-w-3xl text-lg" style={{ color: 'var(--muted)' }}>
             We cut the noise and keep what works. Pick a category to see the kits,
             routines, and tools we rely on.
           </p>
@@ -128,7 +128,11 @@ export default function HomeClient() {
 
         <nav
           aria-label="Categories"
-          className="sticky top-0 z-10 -mx-6 border-b border-slate-800 bg-slate-950/70 px-6 py-3 backdrop-blur"
+          className="sticky top-0 z-10 -mx-6 border-b px-6 py-3 backdrop-blur"
+          style={{
+            borderColor: 'var(--border)',
+            backgroundColor: 'rgba(255, 255, 255, 0.85)',
+          }}
         >
           <div className="flex flex-wrap gap-3">
             {(Object.keys(categories) as CategoryKey[]).map((key) => {
@@ -137,11 +141,21 @@ export default function HomeClient() {
                 <button
                   key={key}
                   onClick={() => setActiveCategory(key)}
-                  className={`rounded-full border px-4 py-2 text-sm font-medium transition ${
-                    isActive
-                      ? 'border-emerald-400 bg-emerald-400/10 text-emerald-200 shadow-[0_0_0_1px_rgba(52,211,153,0.35)]'
-                      : 'border-slate-700 text-slate-200 hover:border-slate-500 hover:text-white'
+                  className={`rounded-full border px-4 py-2 text-sm font-semibold transition ${
+                    isActive ? 'shadow-[0_0_0_1px_rgba(14,165,233,0.35)]' : 'hover:shadow-sm'
                   }`}
+                  style={
+                    isActive
+                      ? {
+                          borderColor: 'var(--teal)',
+                          backgroundColor: 'rgba(14, 165, 233, 0.12)',
+                          color: '#0F172A',
+                        }
+                      : {
+                          borderColor: 'var(--border)',
+                          color: 'var(--muted)',
+                        }
+                  }
                   role="tab"
                   aria-selected={isActive}
                 >
@@ -153,37 +167,78 @@ export default function HomeClient() {
         </nav>
 
         <section
-          className="flex flex-col gap-6 rounded-2xl border border-slate-800 bg-slate-900/60 p-8 shadow-xl shadow-black/30"
+          className="flex flex-col gap-6 rounded-2xl border p-8 shadow-xl"
+          style={{
+            borderColor: 'var(--border)',
+            backgroundColor: 'var(--surface)',
+            boxShadow: '0 20px 25px -5px rgba(15, 23, 42, 0.08)',
+          }}
           aria-live="polite"
         >
           <div className="flex flex-col gap-2">
-            <p className="text-sm uppercase tracking-[0.25em] text-slate-400">
+            <p className="text-sm uppercase tracking-[0.25em]" style={{ color: 'var(--muted)' }}>
               {current.label}
             </p>
-            <h2 className="text-3xl font-semibold text-white sm:text-4xl">
+            <h2 className="text-3xl font-semibold text-[var(--text)] sm:text-4xl">
               {current.label} Kit
             </h2>
-            <p className="max-w-3xl text-lg text-slate-300">{current.description}</p>
+            <p className="max-w-3xl text-lg" style={{ color: 'var(--muted)' }}>
+              {current.description}
+            </p>
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2">
             {current.items.map((item) => (
               <article
                 key={item.title}
-                className="group h-full rounded-xl border border-slate-800 bg-slate-900/70 p-5 transition hover:-translate-y-1 hover:border-emerald-400/60 hover:shadow-lg hover:shadow-emerald-400/15"
+                className="group h-full rounded-xl border p-5 transition hover:-translate-y-1"
+                style={{
+                  borderColor: 'var(--border)',
+                  backgroundColor: '#FFFFFF',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = 'var(--teal)'
+                  e.currentTarget.style.boxShadow = '0 10px 15px -3px rgba(14, 165, 233, 0.15)'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = 'var(--border)'
+                  e.currentTarget.style.boxShadow = 'none'
+                }}
               >
                 <div className="flex items-start justify-between gap-3">
-                  <h3 className="text-xl font-semibold text-white">{item.title}</h3>
-                  <span className="rounded-full border border-emerald-500/40 bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-100">
+                  <h3 className="text-xl font-semibold text-[var(--text)]">{item.title}</h3>
+                  <span
+                    className="rounded-full border px-3 py-1 text-xs font-semibold"
+                    style={{
+                      borderColor: 'rgba(245, 158, 11, 0.45)',
+                      backgroundColor: 'rgba(245, 158, 11, 0.12)',
+                      color: '#C2410C',
+                    }}
+                  >
                     Ready to use
                   </span>
                 </div>
-                <p className="mt-2 text-sm text-slate-300">{item.summary}</p>
+                <p className="mt-2 text-sm" style={{ color: 'var(--muted)' }}>
+                  {item.summary}
+                </p>
                 <ul className="mt-4 flex flex-wrap gap-2">
                   {item.highlights.map((highlight) => (
                     <li
                       key={highlight}
-                      className="rounded-full border border-slate-800 bg-slate-950/60 px-3 py-1 text-xs text-slate-200 transition group-hover:border-emerald-400/40 group-hover:text-emerald-100"
+                      className="rounded-full border px-3 py-1 text-xs transition"
+                      style={{
+                        borderColor: 'var(--border)',
+                        backgroundColor: '#F8FAFC',
+                        color: 'var(--muted)',
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.borderColor = 'var(--teal)'
+                        e.currentTarget.style.color = 'var(--teal)'
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.borderColor = 'var(--border)'
+                        e.currentTarget.style.color = 'var(--muted)'
+                      }}
                     >
                       {highlight}
                     </li>
