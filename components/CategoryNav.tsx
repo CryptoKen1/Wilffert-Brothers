@@ -1,4 +1,5 @@
 'use client';
+import Link from 'next/link';
 import { categories, CategoryKey } from '@/data/categories';
 import { useCategory } from './CategoryContext';
 
@@ -19,18 +20,30 @@ export function CategoryNav() {
         <div className="flex items-center gap-4 overflow-x-auto py-4">
           {(Object.keys(categories) as CategoryKey[]).map((catId) => {
             const isActive = catId === activeCategory;
+            const baseClasses = `
+              flex items-center gap-2 px-6 py-3 rounded-full 
+              whitespace-nowrap transition-all font-medium
+              ${isActive 
+                ? 'bg-[#0EA5E9] text-white shadow-lg' 
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              }
+            `;
+
+            // Finance navigates to its dedicated page; others keep in-page state.
+            if (catId === 'finance') {
+              return (
+                <Link key={catId} href="/finance" className={baseClasses}>
+                  <span className="text-xl">{categoryIcons[catId]}</span>
+                  <span>{categories[catId].label}</span>
+                </Link>
+              );
+            }
+
             return (
               <button
                 key={catId}
                 onClick={() => setActiveCategory(catId)}
-                className={`
-                  flex items-center gap-2 px-6 py-3 rounded-full 
-                  whitespace-nowrap transition-all font-medium
-                  ${isActive 
-                    ? 'bg-[#0EA5E9] text-white shadow-lg' 
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                  }
-                `}
+                className={baseClasses}
               >
                 <span className="text-xl">{categoryIcons[catId]}</span>
                 <span>{categories[catId].label}</span>
