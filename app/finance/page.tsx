@@ -80,8 +80,17 @@ export default function FinancePage() {
 
   return (
     <main className="min-h-screen bg-[#F5F5F5] text-[#2C2C2C]">
+      {/* Header with brand name */}
+      <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200">
+        <div className="max-w-7xl mx-auto px-6 py-4">
+          <Link href="/">
+            <h1 className="text-2xl font-bold text-gray-900">Wilffert Brothers</h1>
+          </Link>
+        </div>
+      </header>
+
       {/* Hero */}
-      <section className="relative isolate min-h-[700px] overflow-hidden bg-gradient-to-br from-[#0EA5E9] to-[#F59E0B]">
+      <section className="relative isolate min-h-[700px] overflow-hidden bg-gradient-to-br from-[#0EA5E9] to-[#F59E0B] pt-20">
         <div className="absolute inset-0">
           <Image
             src={heroImage}
